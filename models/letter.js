@@ -1,6 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
-var sequelize = require('../config/connection.js');
+const sequelize = require('../config/connection.js');
 const User = require('./user.js');
+const Response = require('./response.js');
 
 class Letter extends Model { }
 
@@ -28,5 +29,6 @@ Letter.init(
 );
 
 Letter.belongsTo(User);
+Letter.hasMany(Response);
 
 module.exports = Letter;
