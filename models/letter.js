@@ -28,7 +28,7 @@ Letter.init(
     }
 );
 
-Letter.belongsTo(User);
+Letter.belongsTo(User, { foreignKey: {allowNull: false}, onDelete: 'CASCADE'});
 Letter.hasMany(Response);
 
 module.exports = Letter;
