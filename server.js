@@ -60,7 +60,7 @@ app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, './views/login.html'));
 });
 
-app.get('/create', (req, res) => {
+app.get('/create', ensureLoggedIn('/login'), (req, res) => {
     res.sendFile(path.join(__dirname, './views/create.html'));
 });
 
@@ -89,10 +89,16 @@ app.post('/newuser', (req, res) => {
     });
 });
 
+app.post('/api/createLetter', ensureLoggedIn('/login'), (req, res) => {
+    let letter = req.body;
+    let userid = req.user;
+    letterController.createLetter(userid, letter).then(result => {
+        res.send(result);
+    })
+});
+
 app.listen(PORT, () => {
     sequelize.sync().then(result => {
         console.log(`API server now on port ${PORT}!`);
     });
 });
-
-
