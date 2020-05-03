@@ -60,6 +60,18 @@ app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, './views/login.html'));
 });
 
+app.get('/create', (req, res) => {
+    res.sendFile(path.join(__dirname, './views/create.html'));
+});
+
+app.get('/view', (req, res) => {
+    res.sendFile(path.join(__dirname, './views/view.html'));
+});
+
+app.get('/inbox', (req, res) => {
+    res.sendFile(path.join(__dirname, './views/inbox.html'));
+});
+
 app.post('/login',
     passport.authenticate('local', { failureRedirect: '/login' }),
     function (req, res) {
