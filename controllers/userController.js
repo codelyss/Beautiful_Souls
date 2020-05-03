@@ -14,4 +14,16 @@ const createUser = async function(data) {
     return result;
 }
 
-module.exports = {createUser};
+const getUserByUsername = async function(username) {
+    const result = await users.findOne({
+        where: {
+            username: username
+        }
+    });
+    return result;
+}
+
+module.exports = {
+    createUser,
+    getUserByUsername
+};

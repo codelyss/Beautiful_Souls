@@ -21,6 +21,22 @@ app.get('/newuser', (req, res) => {
     res.sendFile(path.join(__dirname, './views/newuser.html'));
 });
 
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, './views/login.html'));
+});
+
+app.post('/login', (req, res) => {
+    var username = req.body.username;
+    userController.getUserByUsername(username).then(result => {
+        if (result != null) {
+            res.redirect('/');
+        }
+        else {
+            res.send("No user found.");
+        }
+    });
+});
+
 app.post('/newuser', (req, res) => {
     var data = {
         username: req.body.username,
