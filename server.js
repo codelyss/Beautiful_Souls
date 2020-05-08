@@ -93,6 +93,13 @@ app.post('/api/createLetter', ensureLoggedIn('/login'), (req, res) => {
     })
 });
 
+app.get('/api/viewLetters', (req, res) => {
+    let userid = req.user;
+    letterController.viewLetters(userid).then(result => {
+        res.send(result);
+    })
+});
+
 app.listen(PORT, () => {
     sequelize.sync().then(result => {
         console.log(`API server now on port ${PORT}!`);

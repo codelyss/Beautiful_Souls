@@ -10,6 +10,18 @@ const createLetter = async function (userid, data) {
     return result;
 }
 
+const viewLetters = async function (userid) {
+    const results = await letters.findAll({
+        where: {
+            UserId: {
+                [Op.ne]: userid
+            }
+        }
+    });
+    return results;
+}
+
 module.exports = {
-    createLetter
+    createLetter,
+    viewLetters
 };
