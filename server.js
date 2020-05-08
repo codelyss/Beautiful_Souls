@@ -52,10 +52,6 @@ app.get('/', ensureLoggedIn('/login'), (req, res) => {
     res.sendFile(path.join(__dirname, './views/main.html'));
 });
 
-app.get('/newuser', (req, res) => {
-    res.sendFile(path.join(__dirname, './views/newuser.html'));
-});
-
 app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, './views/login.html'));
 });
