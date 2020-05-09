@@ -60,11 +60,11 @@ app.get('/create', ensureLoggedIn('/login'), (req, res) => {
     res.sendFile(path.join(__dirname, './views/create.html'));
 });
 
-app.get('/view', (req, res) => {
+app.get('/view', ensureLoggedIn('/login'), (req, res) => {
     res.sendFile(path.join(__dirname, './views/view.html'));
 });
 
-app.get('/inbox', (req, res) => {
+app.get('/inbox', ensureLoggedIn('/login'), (req, res) => {
     res.sendFile(path.join(__dirname, './views/inbox.html'));
 });
 
@@ -93,11 +93,19 @@ app.post('/api/createLetter', ensureLoggedIn('/login'), (req, res) => {
     })
 });
 
-app.get('/api/viewLetters', (req, res) => {
+app.get('/api/viewRecentLetter', ensureLoggedIn('/login'), (req, res) => {
     let userid = req.user;
-    letterController.viewLetters(userid).then(result => {
+    letterController.viewRecentLetter(userid).then(result => {
         res.send(result);
-    })
+    });
+});
+
+app.get('/api/viewNextLetter/:id', ensureLoggedIn('/login'), (req, res) => {
+    let letterid = req.params.id;
+    let userid = req.user;
+    letterController.viewNextLetter(userid, letterid).then(result => {
+        res.send(result);
+    });
 });
 
 app.listen(PORT, () => {
