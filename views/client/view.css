@@ -1,0 +1,86 @@
+body {
+    background-image: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);
+}
+
+textarea {
+    display: block;
+    border-style: none;
+    border-color: transparent;
+    overflow: hidden;
+    resize: none;
+    height: 460px;
+    width: 490px;
+    margin-left: auto;
+    margin-right: auto;
+    background: transparent;
+    font-family: 'Indie Flower', cursive;
+    font-size: 26px;
+    font-weight: 900;
+    text-shadow: 2px 2px 2px #aaa;
+
+}
+
+textarea:focus {
+    outline: none;
+}
+
+.letterstyle {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+
+    -webkit-box-shadow: 17px 13px 12px 0px rgba(0, 0, 0, 0.58);
+    -moz-box-shadow: 17px 13px 12px 0px rgba(0, 0, 0, 0.58);
+    box-shadow: 17px 13px 12px 0px rgba(0, 0, 0, 0.58);
+}
+
+.container {
+    padding-top: 4em;
+    display: grid;
+}
+
+.content,
+.overlay {
+    grid-area: 1 / 1;
+}
+
+.letterimg {
+    display: block;
+    padding-top: 20px;
+    padding-right: 180px;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 200px !important;
+    width: 300px !important;
+    border: dashed;
+}
+
+.imguploadcontainer {
+    margin-top: 16px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    height: 200px;
+}
+
+.imgplaceholder {
+    width: 320px;
+    height: 200px;
+    border-radius: 33px 33px 33px 33px;
+    -moz-border-radius: 33px 33px 33px 33px;
+    -webkit-border-radius: 33px 33px 33px 33px;
+}
+
+img[src="#"] {
+    display: none;
+}
+
+.txtarea {
+    margin-top: 10px;
+}
