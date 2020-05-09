@@ -1,15 +1,32 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel='stylesheet' href='client/view.css'>
+    <title>Beautiful Souls</title>
 </head>
 
 <body>
-    hello this is view.html
-
-    <div id="divLetters">
-        
+    <div class="container">
+        <div class="content">
+            <img class="letterstyle" width="542" height="704" src="client/letter.png">
+        </div>
+        <div class="overlay">
+            <div class="imguploadcontainer">
+                <img id="imguploaded" class="imgplaceholder" src="#" />
+            </div>
+            <div class="txtarea">
+                <textarea id="txtLetter" readonly spellcheck="false"></textarea>
+            </div>
+        </div>
     </div>
+    <div>
+        <input type="button" id="btnNextLetter" value="Next letter" onclick="showNextLetter()" />
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="client/view.js"></script>
 </body>
