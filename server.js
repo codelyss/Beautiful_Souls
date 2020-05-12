@@ -81,7 +81,9 @@ app.post('/newuser', (req, res) => {
     };
 
     userController.createUser(data).then(result => {
-        res.send(result);
+        req.login(result, function(err) {
+            if (!err) { res.redirect('/'); }
+        });
     });
 });
 
@@ -91,6 +93,14 @@ app.post('/api/createLetter', ensureLoggedIn('/login'), (req, res) => {
     letterController.createLetter(userid, letter).then(result => {
         res.send(result);
     })
+});
+
+app.post('/api/createResponse', ensureLoggedIn('/login'), (req, res) => {
+    let letter = req.body;
+    let userid = req.user;
+    responseController.createResponse(userid, letter).then(result => {
+        res.send(result);
+    });
 });
 
 app.get('/api/viewRecentLetter', ensureLoggedIn('/login'), (req, res) => {
