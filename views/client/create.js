@@ -8,13 +8,6 @@ function saveLetter() {
         method: "POST",
         data: letter
     });
-
-    // if(result != null) {
-    //     alert('New letter created!');
-    // }
-    // else {
-    //     alert("Something went wrong.");
-    // }
 }
 
 function focusTextArea() {
