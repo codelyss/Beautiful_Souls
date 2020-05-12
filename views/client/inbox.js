@@ -1,5 +1,6 @@
 function getAssociatedLetters() {
     // this is retrieving letters that other users wrote, that I responded to.
+    // this is mapped to the letter model
     $.ajax({
         url: '/api/viewAssociatedLetters',
         type: 'GET'
@@ -14,6 +15,7 @@ function getAssociatedLetters() {
 }
 
 function getMyLettersWithResponses() {
+    // this is NOT mapped to the letter model, because it has more data in it
     $.ajax({
         url: '/api/viewMyLettersWithResponses',
         type: 'GET'
