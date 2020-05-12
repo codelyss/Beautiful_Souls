@@ -10,6 +10,18 @@ const createResponse = async function (userid, data) {
     return result;
 }
 
+const viewMyResponses = async function (userid) {
+    const result = await responses.findAll({
+        where: {
+            UserId: {
+                [Op.eq]: userid
+            }
+        }
+    });
+    return result;
+}
+
 module.exports = {
-    createResponse
+    createResponse,
+    viewMyResponses
 };

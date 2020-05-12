@@ -1,6 +1,7 @@
 const letters = require('../models/letter.js');
 const User = require('../models/user.js');
-const { Op } = require('sequelize');
+const sequelize = require('../config/connection.js');
+const { Op, QueryTypes } = require('sequelize');
 
 const createLetter = async function (userid, data) {
     const result = await letters.create({
@@ -74,9 +75,33 @@ const viewNextLetter = async function (userid, letterid) {
     return result;
 }
 
+const viewAssociatedLetters = async function (userid) {
+    // this is retrieving other people's letters that I have responded to.
+    let query = "SELECT id, message, image, createdAt, updatedAt, UserId FROM letters WHERE UserId <> ? AND (SELECT count(*) FROM responses WHERE UserId = ? AND responses.LetterId = letters.id) > 0";
+    const result = await sequelize.query(query, {
+        model: letters,
+        mapToModel: true,
+        replacements: [userid, userid],
+        type: QueryTypes.SELECT
+    });
+    return result;
+}
+
+const viewMyLettersWithResponses = async function (userid) {
+    // this is retrieving my letters that other users have responded to.
+    let query = "SELECT l.id, l.message, l.image, l.createdAt, l.updatedAt, l.UserId, r.UserId AS 'ResponseUserId', u.username FROM letters l INNER JOIN responses r ON r.letterid = l.id INNER JOIN users u ON u.id = r.UserId WHERE r.UserId <> ? GROUP BY ResponseUserId";
+    const result = await sequelize.query(query, {
+        replacements: [userid],
+        type: QueryTypes.SELECT
+    });
+    return result;
+}
+
 module.exports = {
     createLetter,
     viewLetters,
     viewRecentLetter,
-    viewNextLetter
+    viewNextLetter,
+    viewAssociatedLetters,
+    viewMyLettersWithResponses
 };

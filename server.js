@@ -118,6 +118,21 @@ app.get('/api/viewNextLetter/:id', ensureLoggedIn('/login'), (req, res) => {
     });
 });
 
+app.get('/api/viewAssociatedLetters', ensureLoggedIn('/login'), (req, res) => {
+    // this is retrieving other people's letters that I have responded to.
+    let userid = req.user;
+    letterController.viewAssociatedLetters(userid).then(result => {
+        res.send(result);
+    });
+});
+
+app.get('/api/viewMyLettersWithResponses', ensureLoggedIn('/login'), (req, res) => {
+    let userid = req.user;
+    letterController.viewMyLettersWithResponses(userid).then(result => {
+        res.send(result);
+    });
+});
+
 app.listen(PORT, () => {
     sequelize.sync().then(result => {
         console.log(`API server now on port ${PORT}!`);
