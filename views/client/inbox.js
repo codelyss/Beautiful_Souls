@@ -1,15 +1,21 @@
+let maxInboxLetterCount = 40;
+
 function getAssociatedLetters() {
     // this is retrieving letters that other users wrote, that I responded to.
-    // this is mapped to the letter model
     $.ajax({
         url: '/api/viewAssociatedLetters',
         type: 'GET'
     }).then(letters => {
         // todo add check if there are any letters
         letters.forEach(letter => {
-            $('<div />', {
-                html: letter.message
-            }).appendTo('#divMailbox');
+
+            let letterContent = letter.message.substring(0, maxInboxLetterCount);
+
+            $('<div />', {"class": "inboxletter"}).append(
+                $('<div />', {html: letter.username})
+            ).append(
+                $('<div />', {html: letterContent})
+            ).appendTo('#divMailbox');
         });
     });
 }
@@ -22,11 +28,14 @@ function getMyLettersWithResponses() {
     }).then(letters => {
         // to do add check if there are any letters
         letters.forEach(letter => {
-            $('<div />', {
-                html: letter.message + ' (' + letter.username + ')'
-            }).click(function() {
-                alert(letter.ResponseUserId);
-            }).appendTo('#divMailbox');
+
+            let letterContent = letter.message.substring(0, maxInboxLetterCount);
+
+            $('<div />', {"class": "inboxletter"}).append(
+                $('<div />', {html: letter.username})
+            ).append(
+                $('<div />', {html: letterContent})
+            ).appendTo('#divMailbox');
         });
     });
 }
