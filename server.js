@@ -118,6 +118,14 @@ app.get('/api/viewNextLetter/:id', ensureLoggedIn('/login'), (req, res) => {
     });
 });
 
+app.get('/api/viewPreviousLetter/:id', ensureLoggedIn('/login'), (req, res) => {
+    let letterid = req.params.id;
+    let userid = req.user;
+    letterController.viewPreviousLetter(userid, letterid).then(result => {
+        res.send(result);
+    });
+});
+
 app.get('/api/viewAssociatedLetters', ensureLoggedIn('/login'), (req, res) => {
     // this is retrieving other people's letters that I have responded to.
     let userid = req.user;
