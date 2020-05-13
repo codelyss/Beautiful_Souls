@@ -88,3 +88,30 @@ img[src="#"] {
 .invisible {
     display: none;
 }
+
+.leftarrow {
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40px;
+    padding-top: 300px;
+    padding-right: 720px;
+}
+
+.rightarrow {
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40px;
+    padding-top: 300px;
+    padding-left: 680px;
+}
+
+.replyicon {
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40px;
+    /* padding-top: 300px; */
+    padding-left: 680px;
+}

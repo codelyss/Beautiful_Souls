@@ -1,0 +1,20 @@
+.mailboxarea {
+    width: 300px;
+    height: 700px;
+    overflow-y: auto;
+    border: solid 1px;
+    border-radius: 5px;
+}
+
+.mailboxcontainer {
+    margin-left: 200px;
+    margin-top: 50px;
+}
+
+.inboxletter {
+    background-color: cornflowerblue;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+}
