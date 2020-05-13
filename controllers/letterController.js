@@ -75,12 +75,49 @@ const viewNextLetter = async function (userid, letterid) {
     return result;
 }
 
+const viewPreviousLetter = async function (userid, letterid) {
+    // trying to find PREVIOUS (letterid will be different) letter for a DIFFERENT user, 
+    const result = await letters.findOne({
+        where: {
+            UserId: {
+                [Op.ne]: userid
+            },
+            id: {
+                [Op.gt]: letterid
+            }
+        },
+        order: [
+            ['createdAt', 'ASC']
+        ]
+    });
+
+    if (result == null) {
+        // didn't find a letter. That could mean two things.
+        // 1: there are truly no results to show for the logged in person.
+        // 2: we reached the very end of letters, and we need to loop back around to first one
+        if (letterid == Number.MIN_SAFE_INTEGER) {
+            // if we reached here, that means letterid is set to minimum number allowed.
+            // that means we were already in this function before, and we had set that letterid
+            // we are already in the if result is null check, and letterid is still minimum number
+            // therefore that means there are truly no records to show for that user.
+            return null;
+        }
+        // we will try to set the letterid to minimum number allowed.
+        letterid = Number.MIN_SAFE_INTEGER;
+        // we will try to call the same function, but this time with a very small id number.
+        return viewPreviousLetter(userid, letterid);
+    }
+
+    // we will only get here if the result is not null.
+    // because if the result is null, the code above it will return different value.
+    // that means we found a good record to show.
+    return result;
+}
+
 const viewAssociatedLetters = async function (userid) {
     // this is retrieving other people's letters that I have responded to.
-    let query = "SELECT id, message, image, createdAt, updatedAt, UserId FROM letters WHERE UserId <> ? AND (SELECT count(*) FROM responses WHERE UserId = ? AND responses.LetterId = letters.id) > 0";
+    let query = "SELECT l.id, l.message, l.image, l.createdAt, l.updatedAt, l.UserId, u.username FROM letters l INNER JOIN users u ON l.UserId = u.id WHERE l.UserId <> ? AND (SELECT count(*) FROM responses r WHERE r.UserId = ? AND r.LetterId = l.id) > 0";
     const result = await sequelize.query(query, {
-        model: letters,
-        mapToModel: true,
         replacements: [userid, userid],
         type: QueryTypes.SELECT
     });
@@ -102,6 +139,7 @@ module.exports = {
     viewLetters,
     viewRecentLetter,
     viewNextLetter,
+    viewPreviousLetter,
     viewAssociatedLetters,
     viewMyLettersWithResponses
 };
