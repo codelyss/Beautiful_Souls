@@ -30,6 +30,20 @@ function showNextLetter() {
     });
 }
 
+function showPreviousLetter() {
+    switchTextArea(false);
+
+    $.ajax({
+        url: '/api/viewPreviousLetter/' + currentLetterId,
+        type: 'GET'
+    }).then(letter => {
+        if (letter == null) {
+            return;
+        }
+        displayLetter(letter);
+    });
+}
+
 function displayLetter(letter) {
     currentLetterId = letter.id;
     let message = letter.message;
