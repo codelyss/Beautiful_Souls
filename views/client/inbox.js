@@ -26,20 +26,24 @@ function getAssociatedLetters() {
             let letterContent = letter.message.substring(0, maxInboxLetterCount);
             let strongusername = '<strong>From: ' + letter.username + '</strong>';
 
-            $('<div />', { "class": "inboxletter" }).append(
-                $('<div />', { html: strongusername })
+            $('<div />', { "class": "tooltip"}).append(
+                $('<span />', {"class": "tooltiptext", html: letter.message})
             ).append(
-                $('<div />', { html: letterContent })
-            ).click(function () {
-                let userid = letter.UserId;
-                let letterid = letter.id;
-                $.ajax({
-                    url: '/api/viewRecentResponse/' + userid + '/' + letterid,
-                    type: 'GET'
-                }).then(result => {
-                    displayResponse(result);
-                });
-            }).appendTo('#divMailbox');
+                $('<div />', { "class": "inboxletter" }).append(
+                    $('<div />', { html: strongusername })
+                ).append(
+                    $('<div />', { html: letterContent })
+                ).click(function () {
+                    let userid = letter.UserId;
+                    let letterid = letter.id;
+                    $.ajax({
+                        url: '/api/viewRecentResponse/' + userid + '/' + letterid,
+                        type: 'GET'
+                    }).then(result => {
+                        displayResponse(result);
+                    });
+                })
+            ).appendTo('#divMailbox');
         });
     });
 }
@@ -55,20 +59,24 @@ function getMyLettersWithResponses() {
             let letterContent = letter.message.substring(0, maxInboxLetterCount);
             let strongusername = '<strong>From: ' + letter.username + '</strong>';
 
-            $('<div />', { "class": "inboxletter" }).append(
-                $('<div />', { html: strongusername })
+            $('<div />', { "class": "tooltip"}).append(
+                $('<span />', {"class": "tooltiptext", html: letter.message})
             ).append(
-                $('<div />', { html: letterContent })
-            ).click(function () {
-                let userid = letter.ResponseUserId;
-                let letterid = letter.id;
-                $.ajax({
-                    url: '/api/viewRecentResponse/' + userid + '/' + letterid,
-                    type: 'GET'
-                }).then(result => {
-                    displayResponse(result);
-                });
-            }).appendTo('#divMailbox');
+                $('<div />', { "class": "inboxletter" }).append(
+                    $('<div />', { html: strongusername })
+                ).append(
+                    $('<div />', { html: letterContent })
+                ).click(function () {
+                    let userid = letter.ResponseUserId;
+                    let letterid = letter.id;
+                    $.ajax({
+                        url: '/api/viewRecentResponse/' + userid + '/' + letterid,
+                        type: 'GET'
+                    }).then(result => {
+                        displayResponse(result);
+                    });
+                })
+            ).appendTo('#divMailbox');
         });
     });
 }

@@ -34,3 +34,30 @@
     -webkit-user-select: none;
     -ms-user-select: none;
 }
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    width:100%;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 170px;
+    background-color: black;
+    color: #fff;
+    text-align: left;
+    border-radius: 6px;
+    padding: 10px;
+  
+    /* Position the tooltip */
+    position: absolute;
+    top: 50px;
+    left: 10px;
+    z-index: 1;
+  }
+  
+  .tooltip:hover .tooltiptext {
+      transition-delay: 0.5s;
+    visibility: visible;
+  }
