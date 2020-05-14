@@ -1,5 +1,17 @@
 let currentLetterId;
 
+var modal = document.getElementById("myModal");
+
+function closeModal() {
+    modal.style.display = "none";
+}
+
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
 function showLetters() {
     $.ajax({
         url: '/api/viewRecentLetter',
@@ -44,10 +56,25 @@ function showPreviousLetter() {
     });
 }
 
+let currentChar;
+let currentMessage;
 function displayLetter(letter) {
+    $('#txtLetter').val('');
     currentLetterId = letter.id;
-    let message = letter.message;
-    $('#txtLetter').val(message);
+    currentMessage = letter.message;
+    currentChar = 0;
+    window.setTimeout(showNextCharacter, 20);
+}
+
+function showNextCharacter() {
+    if (currentChar > currentMessage.length) {return;}
+    let curmsg = $('#txtLetter').val();
+    curmsg += currentMessage[currentChar];
+    $('#txtLetter').val(curmsg);
+    if (currentChar < currentMessage.length -1){
+        currentChar++;
+        window.setTimeout(showNextCharacter, 20);
+    }
 }
 
 function switchTextArea(respond) {
@@ -66,6 +93,7 @@ function switchTextArea(respond) {
 }
 
 function respondToLetter() {
+    currentChar = Number.MAX_SAFE_INTEGER;
     let currentText = $('#txtLetter').val();
     switchTextArea(true);
 }
@@ -86,7 +114,19 @@ function saveResponse() {
         method: "POST",
         data: letter
     });
+    $('#txtLetter').val('');
+    switchTextArea(false);
+
+    modal.style.display = "block";
 }
+
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+  }
+  
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+  }
 
 showLetters();
 

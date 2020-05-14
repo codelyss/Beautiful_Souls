@@ -4,7 +4,7 @@ const e = React.createElement;
 
 class MainPage extends React.Component {
     render() {
-        var inboxLink = e('a', {class: 'btn btn-primary btn-lg mt-4', href:'/inbox', role:'button'}, 'Inbox');
+        var inboxLink = e('a', {class: 'btn btn-primary btn-lg mt-4', href:'/inbox', role:'button'}, 'Mailbox');
         var viewLink = e('a', {class: 'btn btn-primary btn-lg mt-4 btnpadding', href:'/view', role:'button'}, 'View other Letters');
         var createLink = e('a', {class: 'btn btn-primary btn-lg mt-4', href:'/create', role:'button'}, 'Write a Letter');
         var subtitle = e('h4', {class: 'mt-4'}, 'Create and share letters with others!');
