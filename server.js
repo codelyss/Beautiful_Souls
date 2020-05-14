@@ -74,6 +74,11 @@ app.post('/login',
         res.redirect('/');
     });
 
+app.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
+});
+
 app.post('/newuser', (req, res) => {
     var data = {
         username: req.body.username,
