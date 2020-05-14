@@ -40,10 +40,17 @@ textarea:focus {
 }
 
 .btnsavestyle {
-    padding-top: 580px;
+    padding-top: 540px;
     padding-left: 880px;
     margin-left: auto;
     margin-right: auto;
+    cursor: pointer;
+
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 
 .container {
@@ -96,3 +103,15 @@ img[src="#"] {
     background-color: #2C3E50;
     border-color: #2C3E50;
 }
+
+.navstyle {
+    padding-top: 160px;
+    padding-right: 900px;
+    margin-left: 35px;
+    margin-right: auto;
+    cursor: pointer;
+}
+
+
+
+

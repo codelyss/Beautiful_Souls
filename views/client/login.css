@@ -111,4 +111,10 @@ body {
     color: #EF3B3A;
 }
 
-   
+.invisible {
+    display: none
+}
+
+.red {
+    color:red !important;
+}
