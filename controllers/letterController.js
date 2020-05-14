@@ -126,9 +126,9 @@ const viewAssociatedLetters = async function (userid) {
 
 const viewMyLettersWithResponses = async function (userid) {
     // this is retrieving my letters that other users have responded to.
-    let query = "SELECT l.id, l.message, l.image, l.createdAt, l.updatedAt, l.UserId, r.UserId AS 'ResponseUserId', u.username FROM letters l INNER JOIN responses r ON r.letterid = l.id INNER JOIN users u ON u.id = r.UserId WHERE r.UserId <> ? GROUP BY ResponseUserId";
+    let query = "SELECT l.id, l.message, l.image, l.createdAt, l.updatedAt, l.UserId, r.UserId AS 'ResponseUserId', u.username FROM letters l INNER JOIN responses r ON r.letterid = l.id INNER JOIN users u ON u.id = r.UserId WHERE r.UserId <> ? AND l.UserId = ? GROUP BY ResponseUserId";
     const result = await sequelize.query(query, {
-        replacements: [userid],
+        replacements: [userid, userid],
         type: QueryTypes.SELECT
     });
     return result;
