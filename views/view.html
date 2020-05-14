@@ -8,11 +8,16 @@
     <link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet'>
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <link rel='stylesheet' href='client/view.css'>
+    <link rel='stylesheet' href='client/sidebar.css'>
+    <link rel='stylesheet' href='client/modal.css'>
     <title>Beautiful Souls</title>
 </head>
 
 <body>
     <div class="container">
+        <div class="menuposition">
+            <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+        </div>
         <div class="content">
             <img id="imgletter" class="letterstyle" width="542" height="704" src="client/letter.png">
         </div>
@@ -39,13 +44,31 @@
                 <i class="far fa-comment-dots fa-4x"></i>
             </div>
         </div>
+        <div class="overlay btnsavestyle">
+            <img width="180" height="180" id="btnSaveResponse" class="invisible" onclick="saveResponse()" src="client/waxstamp.png">
+        </div>
+
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <p>Successfully responded to a letter!</p>
+                <div>
+                    <input type="button" onclick="closeModal()" class="modalclosebutton" value="Ok">
+                </div>
+            </div>
+        </div>
+
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="/">Home</a>
+            <a href="/create">Write a Letter</a>
+            <a href="/inbox">Mailbox</a>
+          </div>
     </div>
-    <div>
-        <input type="button" id="btnSaveResponse" class="invisible" value="Save" onclick="saveResponse()" />
-    </div>
+    
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="client/view.js"></script>
+    <script src="client/letter.js"></script>
 </body>
 
 </html>

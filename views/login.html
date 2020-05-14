@@ -15,12 +15,14 @@
             <form class="register-form" method="post" action="/newuser">
                 <input type="text" name="username" placeholder="username" />
                 <input type="password" name="password" placeholder="password" />
+                <p id='usernametaken' class="invisible red">Username already taken</p>
                 <button>create</button>
                 <p class="message">Already registered? <a href="#" onclick="switchForm()">Sign In</a></p>
             </form>
             <form class="login-form" method="post" action="/login">
                 <input type="text" name="username" placeholder="username" />
                 <input type="password" name="password" placeholder="password" />
+                <p id='invaliduserpass' class="invisible red">Invalid username/password</p>
                 <button>login</button>
                 <p class="message">Not registered? <a href="#" onclick="switchForm()">Create an account</a></p>
             </form>

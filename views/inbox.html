@@ -5,22 +5,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Beautiful Souls Inbox</title>
+    <title>Beautiful Souls Mailbox</title>
     <link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet'>
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <link rel='stylesheet' href='client/inbox.css'>
+    <link rel='stylesheet' href='client/view.css'>
+    <link rel='stylesheet' href='client/sidebar.css'>
+    <link rel='stylesheet' href='client/modal.css'>
 </head>
 
 <body>
-
+    <div class="menuposition">
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+    </div>
     <div class="mailboxcontainer">
+
         <div id="divMailbox" class="mailboxarea">
 
         </div>
+
+        <div id="divLetter" class="container invisible">
+            <div class="content">
+                <img id="imgletter" class="letterstyle" width="542" height="704" onclick="focusTextArea()"
+                    src="client/letter.png">
+            </div>
+            <div class="overlay">
+                <div class="imguploadcontainer">
+                    <img id="imguploaded" class="imgplaceholder" src="#" />
+                </div>
+                <div class="txtarea">
+                    <textarea id="txtLetter" readonly spellcheck="false"></textarea>
+                </div>
+            </div>
+            <div class="overlay">
+                <div class="leftarrow" onclick="showPreviousResponse()">
+                    <i class="fas fa-angle-left fa-7x"></i>
+                </div>
+            </div>
+            <div class="overlay">
+                <div class="rightarrow" onclick="showNextResponse()">
+                    <i class="fas fa-angle-right fa-7x"></i>
+                </div>
+            </div>
+            <div class="overlay">
+                <div class="replyicon" onclick="respondAgain()">
+                    <i class="far fa-comment-dots fa-4x"></i>
+                </div>
+            </div>
+            <div class="overlay btnsavestyle">
+                <img width="180" id="btnSaveResponse" class="invisible" height="180" onclick="saveResponse()" src="client/waxstamp.png">
+            </div>
+        </div>
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="/">Home</a>
+            <a href="/create">Write a Letter</a>
+            <a href="/view">View other Letters</a>
+        </div>
+
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <p>Successfully responded to a letter!</p>
+                <div>
+                    <input type="button" onclick="closeModal()" class="modalclosebutton" value="Ok">
+                </div>
+            </div>
+        </div>
     </div>
-    
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="client/inbox.js"></script>
+    <script src="client/letter.js"></script>
 </body>
 
 </html>
