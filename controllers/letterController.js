@@ -116,7 +116,7 @@ const viewPreviousLetter = async function (userid, letterid) {
 
 const viewAssociatedLetters = async function (userid) {
     // this is retrieving other people's letters that I have responded to.
-    let query = "SELECT l.id, l.message, l.image, l.createdAt, l.updatedAt, l.UserId, u.username FROM letters l INNER JOIN users u ON l.UserId = u.id WHERE l.UserId <> ? AND (SELECT count(*) FROM responses r WHERE r.UserId = ? AND r.LetterId = l.id) > 0";
+    let query = "SELECT l.id, l.message, l.image, l.createdAt, l.updatedAt, l.UserId, u.username FROM Letters l INNER JOIN Users u ON l.UserId = u.id WHERE l.UserId <> ? AND (SELECT count(*) FROM Responses r WHERE r.UserId = ? AND r.LetterId = l.id) > 0";
     const result = await sequelize.query(query, {
         replacements: [userid, userid],
         type: QueryTypes.SELECT
@@ -126,7 +126,7 @@ const viewAssociatedLetters = async function (userid) {
 
 const viewMyLettersWithResponses = async function (userid) {
     // this is retrieving my letters that other users have responded to.
-    let query = "SELECT l.id, l.message, l.image, l.createdAt, l.updatedAt, l.UserId, r.UserId AS 'ResponseUserId', u.username FROM letters l INNER JOIN responses r ON r.letterid = l.id INNER JOIN users u ON u.id = r.UserId WHERE r.UserId <> ? AND l.UserId = ? GROUP BY ResponseUserId";
+    let query = "SELECT l.id, l.message, l.image, l.createdAt, l.updatedAt, l.UserId, r.UserId AS 'ResponseUserId', u.username FROM Letters l INNER JOIN Responses r ON r.letterid = l.id INNER JOIN Users u ON u.id = r.UserId WHERE r.UserId <> ? AND l.UserId = ? GROUP BY ResponseUserId";
     const result = await sequelize.query(query, {
         replacements: [userid, userid],
         type: QueryTypes.SELECT
