@@ -3,8 +3,6 @@
     width: 300px;
     height: 700px;
     overflow-y: auto;
-    border: solid 1px;
-    border-radius: 5px;
     position: absolute;
 }
 
@@ -14,7 +12,7 @@
 }
 
 .inboxletter {
-    background-color: cornflowerblue;
+    background-color: rgb(127, 174, 178);
     border-radius: 5px;
     padding: 10px;
     margin: 5px;
