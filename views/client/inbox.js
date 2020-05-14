@@ -24,6 +24,7 @@ function getAssociatedLetters() {
         letters.forEach(letter => {
 
             let letterContent = letter.message.substring(0, maxInboxLetterCount);
+            letterContent += "...";
             let strongusername = '<strong>From: ' + letter.username + '</strong>';
 
             $('<div />', { "class": "tooltip"}).append(
@@ -57,6 +58,7 @@ function getMyLettersWithResponses() {
         // to do add check if there are any letters
         letters.forEach(letter => {
             let letterContent = letter.message.substring(0, maxInboxLetterCount);
+            letterContent += "...";
             let strongusername = '<strong>From: ' + letter.username + '</strong>';
 
             $('<div />', { "class": "tooltip"}).append(
