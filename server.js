@@ -69,7 +69,7 @@ app.get('/inbox', ensureLoggedIn('/login'), (req, res) => {
 });
 
 app.post('/login',
-    passport.authenticate('local', { failureRedirect: '/login' }),
+    passport.authenticate('local', { failureRedirect: '/login?invaliduser=true' }),
     function (req, res) {
         res.redirect('/');
     });
@@ -80,11 +80,18 @@ app.post('/newuser', (req, res) => {
         password: req.body.password
     };
 
-    userController.createUser(data).then(result => {
-        req.login(result, function(err) {
-            if (!err) { res.redirect('/'); }
+     userController.getUserByUsername(data.username).then(result => {
+        if (result != null) {
+            //user with that name already exists
+            res.redirect('/login?usernameTaken=true');
+            return;
+        }
+        userController.createUser(data).then(result => {
+            req.login(result, function(err) {
+                if (!err) { res.redirect('/'); }
+            });
         });
-    });
+    })
 });
 
 app.post('/api/createLetter', ensureLoggedIn('/login'), (req, res) => {
@@ -126,6 +133,22 @@ app.get('/api/viewPreviousLetter/:id', ensureLoggedIn('/login'), (req, res) => {
     });
 });
 
+app.get('/api/viewNextResponse/:letterid/:responseid', ensureLoggedIn('/login'), (req, res) => {
+    let letterid = req.params.letterid;
+    let responseid = req.params.responseid;
+    responseController.viewNextResponse(letterid, responseid).then(result => {
+        res.send(result);
+    })
+});
+
+app.get('/api/viewPreviousResponse/:letterid/:responseid', ensureLoggedIn('/login'), (req, res) => {
+    let letterid = req.params.letterid;
+    let responseid = req.params.responseid;
+    responseController.viewPreviousResponse(letterid, responseid).then(result => {
+        res.send(result);
+    });
+});
+
 app.get('/api/viewAssociatedLetters', ensureLoggedIn('/login'), (req, res) => {
     // this is retrieving other people's letters that I have responded to.
     let userid = req.user;
@@ -140,6 +163,15 @@ app.get('/api/viewMyLettersWithResponses', ensureLoggedIn('/login'), (req, res) 
         res.send(result);
     });
 });
+
+app.get('/api/viewRecentResponse/:userid/:letterid', ensureLoggedIn('/login'), (req, res) => {
+    let userid = req.user;
+    let responseuserid = req.params.userid;
+    let letterid = req.params.letterid;
+    responseController.viewRecentResponse(userid, responseuserid, letterid).then(result => {
+        res.send(result);
+    });
+})
 
 app.listen(PORT, () => {
     sequelize.sync().then(result => {
