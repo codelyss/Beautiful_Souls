@@ -138,18 +138,24 @@ app.get('/api/viewPreviousLetter/:id', ensureLoggedIn('/login'), (req, res) => {
     });
 });
 
-app.get('/api/viewNextResponse/:letterid/:responseid', ensureLoggedIn('/login'), (req, res) => {
+app.get('/api/viewNextResponse/:letterid/:responseid/:userid', ensureLoggedIn('/login'), (req, res) => {
     let letterid = req.params.letterid;
     let responseid = req.params.responseid;
-    responseController.viewNextResponse(letterid, responseid).then(result => {
+    let thisuserid = req.user;
+    let userid = req.params.userid;
+    console.log(userid);
+    console.log(thisuserid);
+    responseController.viewNextResponse(letterid, responseid, thisuserid, userid).then(result => {
         res.send(result);
     })
 });
 
-app.get('/api/viewPreviousResponse/:letterid/:responseid', ensureLoggedIn('/login'), (req, res) => {
+app.get('/api/viewPreviousResponse/:letterid/:responseid/:userid', ensureLoggedIn('/login'), (req, res) => {
     let letterid = req.params.letterid;
     let responseid = req.params.responseid;
-    responseController.viewPreviousResponse(letterid, responseid).then(result => {
+    let thisuserid = req.user;
+    let userid = req.params.userid;
+    responseController.viewPreviousResponse(letterid, responseid, thisuserid, userid).then(result => {
         res.send(result);
     });
 });

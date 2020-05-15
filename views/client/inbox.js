@@ -1,6 +1,7 @@
 let maxInboxLetterCount = 40;
 let currentResponseId;
 let currentLetterId;
+let currentUserId;
 
 var modal = document.getElementById("myModal");
 
@@ -36,6 +37,7 @@ function getAssociatedLetters() {
                     $('<div />', { html: letterContent })
                 ).click(function () {
                     let userid = letter.UserId;
+                    currentUserId = userid;
                     let letterid = letter.id;
                     $.ajax({
                         url: '/api/viewRecentResponse/' + userid + '/' + letterid,
@@ -70,7 +72,9 @@ function getMyLettersWithResponses() {
                     $('<div />', { html: letterContent })
                 ).click(function () {
                     let userid = letter.ResponseUserId;
+                    currentUserId = userid;
                     let letterid = letter.id;
+                    
                     $.ajax({
                         url: '/api/viewRecentResponse/' + userid + '/' + letterid,
                         type: 'GET'
@@ -119,7 +123,7 @@ function showPreviousResponse() {
     switchTextArea(false);
 
     $.ajax({
-        url: '/api/viewPreviousResponse/' + currentLetterId + '/' + currentResponseId,
+        url: '/api/viewPreviousResponse/' + currentLetterId + '/' + currentResponseId + '/' + currentUserId,
         type: 'GET'
     }).then(response => {
         if (response == null) {
@@ -133,7 +137,7 @@ function showNextResponse() {
     switchTextArea(false);
 
     $.ajax({
-        url: '/api/viewNextResponse/' + currentLetterId + '/' + currentResponseId,
+        url: '/api/viewNextResponse/' + currentLetterId + '/' + currentResponseId + '/' + currentUserId,
         type: 'GET'
     }).then(response => {
         if (response == null) {

@@ -37,7 +37,7 @@ const viewRecentResponse = async function (userid, responseuserid, letterid) {
     return result;
 }
 
-const viewNextResponse = async function (letterid, responseid) {
+const viewNextResponse = async function (letterid, responseid, thisuserid, userid) {
      const result = await responses.findOne({
         where: {
             id: {
@@ -45,7 +45,11 @@ const viewNextResponse = async function (letterid, responseid) {
             },
             LetterId: {
                 [Op.eq]: letterid
-            }
+            },
+            [Op.or]: [
+                { UserId: thisuserid },
+                { UserId: userid }
+            ]
         },
         order: [
             ['createdAt', 'DESC']
@@ -57,13 +61,13 @@ const viewNextResponse = async function (letterid, responseid) {
             return null;
         }
         responseid = Number.MAX_SAFE_INTEGER;
-        return viewNextResponse(letterid, responseid);
+        return viewNextResponse(letterid, responseid, thisuserid, userid);
     }
 
     return result;
 }
 
-const viewPreviousResponse = async function (letterid, responseid) {
+const viewPreviousResponse = async function (letterid, responseid, thisuserid, userid) {
     const result = await responses.findOne({
         where: {
             id: {
@@ -71,7 +75,11 @@ const viewPreviousResponse = async function (letterid, responseid) {
             },
             LetterId: {
                 [Op.eq]: letterid
-            }
+            },
+            [Op.or]: [
+                { UserId: thisuserid},
+                { UserId: userid}
+            ]
         },
         order: [
             ['createdAt', 'ASC']
@@ -83,7 +91,7 @@ const viewPreviousResponse = async function (letterid, responseid) {
             return null;
         }
         responseid = Number.MIN_SAFE_INTEGER;
-        return viewPreviousResponse(letterid, responseid);
+        return viewPreviousResponse(letterid, responseid, thisuserid, userid);
     }
 
     return result;
